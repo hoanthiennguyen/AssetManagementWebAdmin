@@ -11,8 +11,9 @@ class AssetList extends Component {
         })
     }
     render() {
-        let assets = this.props.list.map(asset => <Asset onClick={this.props.addAsset} name={asset.name}></Asset>)
-        return assets;
+        let assets = this.props.list.map(asset => <Asset key={asset.id} onClick={this.props.addAsset} name={asset.name}></Asset>)
+        return [<h3>Asset</h3>,
+            assets];
     }
 }
 const mapStateToProps = state => {

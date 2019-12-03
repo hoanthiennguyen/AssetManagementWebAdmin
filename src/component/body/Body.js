@@ -1,10 +1,12 @@
 import AssetList from './AssetList'
+import {connect} from 'react-redux'
 
 
 import React, { Component } from 'react'
 
-export default class Body extends Component {
+class Body extends Component {
   render() {
+    console.log(this.props)
     return (
       <div>
         <AssetList></AssetList>
@@ -12,4 +14,5 @@ export default class Body extends Component {
     )
   }
 }
+export default connect()(Body)
 
