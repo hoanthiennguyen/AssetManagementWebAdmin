@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './index.css';
 import 'antd/dist/antd.css';
-import AssetList from './component/body/AssetList';
+import AssetList from './component/AssetList';
 import Reports from './component/Reports';
 import AssetTypes from './component/AssetTypes';
 import Departments from './component/Departments';
@@ -53,10 +53,10 @@ ReactDOM.render(
         </Menu>
         <Provider store={store}>
             <div className="main-contain">
-                <Route exact path="/" component={Reports} />
-                <Route path="/assets" component={AssetList} />
-                <Route path="/asset-types" component={AssetTypes} />
-                <Route path="/departments" component={Departments} />
+                <Route key="reports" exact path="/" component={Reports} />
+                <Route key="assets" path="/assets" component={AssetList} />
+                <Route key="assetType" path="/asset-types" component={AssetTypes} />
+                <Route key="departments" path="/departments" component={Departments} />
             </div>
         </Provider>
     </Router>,
