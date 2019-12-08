@@ -27,3 +27,16 @@ export function getAllAsset() {
         method: 'GET',
     });
 }
+export function getAllAssetTypes(){
+    return request({
+        url: BASE_URL + "/asset-types",
+        method: 'GET'
+    })
+}
+export function updateAsset(data){
+    return request({
+        url: BASE_URL + "/assets/"+data.id,
+        method: 'PUT',
+        body: JSON.stringify(data)
+    })
+}

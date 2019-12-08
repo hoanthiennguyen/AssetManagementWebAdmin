@@ -17,7 +17,8 @@ const { SubMenu } = Menu;
 const initialState = {
     assetList: [],
     departmentList: [],
-    employeeList: []
+    employeeList: [],
+    assetTypes: [],
 };
 const store = createStore(reducer, initialState);
 
