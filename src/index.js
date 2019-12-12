@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import './index.css';
 import 'antd/dist/antd.css';
-import AssetList from './component/AssetList';
-import Reports from './component/Reports';
-import AssetTypes from './component/AssetTypes';
-import Departments from './component/Departments';
+import MainContent from './component/MainContent'
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -16,9 +13,10 @@ const { SubMenu } = Menu;
 
 const initialState = {
     assetList: [],
-    departmentList: [],
-    employeeList: [],
+    departments: [],
+    employees: [],
     assetTypes: [],
+    locations: [],
 };
 const store = createStore(reducer, initialState);
 
@@ -53,11 +51,8 @@ ReactDOM.render(
             </Menu.Item>
         </Menu>
         <Provider store={store}>
-            <div className="main-contain">
-                <Route key="reports" exact path="/" component={Reports} />
-                <Route key="assets" path="/assets" component={AssetList} />
-                <Route key="assetType" path="/asset-types" component={AssetTypes} />
-                <Route key="departments" path="/departments" component={Departments} />
+            <div className="main-container">
+                <MainContent></MainContent>
             </div>
         </Provider>
     </Router>,

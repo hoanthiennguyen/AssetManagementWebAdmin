@@ -6,7 +6,7 @@ body {
 #root {
   height: 100vh;
  }
- .main-contain{
+ .main-container{
    position: absolute;
    left: 300px;
    top: 50px;

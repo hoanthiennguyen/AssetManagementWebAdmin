@@ -1,23 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as api from '../api/index'
-import { setAssetList, setAssetTypes } from '../action/index'
-import { Table, Divider, Button } from 'antd'
-import CustomModal from './CustomModal'
+import DeleteModal from './DeleteModal'
+import { Table, Divider } from 'antd'
+import EditModal from './EditModal'
+import AddModal from './AddModal'
 
 class AssetList extends Component {
-  state = {
-    isModalVisible: false,
-    modalContent: null,
-  }
-  componentDidMount = () => {
-    api.getAllAsset().then(assetList => {
-      this.props.dispatch(setAssetList(assetList));
-    })
-    api.getAllAssetTypes().then(assetTypes => {
-      this.props.dispatch(setAssetTypes(assetTypes));
-    })
-  }
+  
   handleEdit = (record) => {
     this.setState({
       ...this.state,
@@ -61,21 +50,26 @@ class AssetList extends Component {
         key: 'action',
         render: (text, record) => (
           <span>
-            <Button onClick={() => this.handleEdit(record)}>Edit</Button>
+            <EditModal name="Edit" record={record}></EditModal>
             <Divider type="vertical"></Divider>
-            <Button >Delete</Button>
+            <DeleteModal record={record}></DeleteModal>
           </span>
         ),
       }];
-    let modal = this.state.isModalVisible ? <CustomModal visible={this.state.isModalVisible} onSave={this.handleSave} record={this.state.modalContent}></CustomModal> : null;
     let table = <Table columns={columns} dataSource={this.props.list}></Table>
-    return [<h3>Asset</h3>,
-      modal,
+    return [
+      
+        <h3 style={{display:'inline-block'}}>Assets</h3>,
+        <div style={{display:'inline-block',float:'right'}}>
+          <AddModal>
+          </AddModal>
+        </div>,
+
       table];
   }
 }
 
 const mapStateToProps = state => {
-  return { list: state.assetList};
+  return { list: state.assetList };
 }
 export default connect(mapStateToProps)(AssetList)

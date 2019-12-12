@@ -21,6 +21,32 @@ export default (state, action) => {
                     ...state,
                     assetList:newAssetList
                 }
+        case TYPES.DELETE_ASSET:
+                let updated = state.assetList.filter((asset) => asset.id !== action.id)
+                return {
+                    ...state,
+                    assetList:updated
+                }
+        case TYPES.ADD_ASSET:
+                return {
+                    ...state,
+                    assetList:state.assetList.concat(action.asset)
+                }
+        case TYPES.SET_LOCATIONS:
+                return {
+                    ...state,
+                    locations:action.locations
+                }
+        case TYPES.SET_EMPLOYEES:
+                return {
+                    ...state,
+                    employees:action.employees
+                }
+        case TYPES.SET_DEPARTMENTS:
+                return {
+                    ...state,
+                    departments:action.departments
+                }
         default:
             return state;
     }    

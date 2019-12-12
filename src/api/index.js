@@ -7,7 +7,7 @@ function request(options) {
     if (localStorage.getItem('accessToken')) {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'))
     }
-
+    headers.append('Authorization', "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfRklSTV9BRE1JTixST0xFX0ZJUk1fRU1QTE9ZRUUiLCJzdWIiOiJraGFuaDQiLCJpc3MiOiJBc3NldCBNYW5hZ2VtZW50IFN5c3RlbSBBUEkiLCJpYXQiOjE1NzYwNTExOTQsImV4cCI6MTU3NjY1NTk5NH0.ZhFqQSf2QofQjDDdUjm2WSJLstXPC3VAKkg-9ER4BAMrGJJ86cAw4dqP_ni0U_YBNA6mSNqIps8-wF8CmsoRZQ")
     const defaults = { headers: headers };
     options = Object.assign({}, defaults, options);
 
@@ -38,5 +38,36 @@ export function updateAsset(data){
         url: BASE_URL + "/assets/"+data.id,
         method: 'PUT',
         body: JSON.stringify(data)
+    })
+}
+export function deleteAsset(id){
+    return request({
+        url: BASE_URL + "/assets/"+id,
+        method: 'DELETE'
+    })
+}
+export function addAsset(asset){
+    return request({
+        url: BASE_URL + "/assets",
+        method: 'POST',
+        body: JSON.stringify(asset)
+    })
+}
+export function getAllLocations(){
+    return request({
+        url: BASE_URL + "/locations",
+        method: 'GET'
+    })
+}
+export function getEmployees(){
+    return request({
+        url: BASE_URL + "/employees?page=0&size=10",
+        method: 'GET'
+    })
+}
+export function getDepartments(){
+    return request({
+        url: BASE_URL + "/departments",
+        method: 'GET'
     })
 }
