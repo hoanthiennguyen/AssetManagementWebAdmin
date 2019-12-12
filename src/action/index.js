@@ -44,6 +44,10 @@ export const addDepartment = department => ({
   type: TYPES.ADD_DEPARTMENT,
   department
 })
+export const updateEmployees = employees => ({
+  type: TYPES.UPDATE_EMPLOYEES,
+  employees
+})
 export const TYPES = {
   SET_ASSET_LIST:"SET_ASSET_LIST",
   ADD_ASSET: "ADD_ASSET",
@@ -56,4 +60,5 @@ export const TYPES = {
   UPDATE_DEPARTMENT:"UPDATE_DEPARTMENT",
   ADD_EMPLOYEES:"ADD_EMPLOYEES",
   ADD_DEPARTMENT:"ADD_DEPARTMENT",
+  UPDATE_EMPLOYEES:"UPDATE_EMPLOYEES",
 }

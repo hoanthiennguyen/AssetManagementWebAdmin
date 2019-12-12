@@ -65,6 +65,15 @@ export default (state, action) => {
                     ...state,
                     departments: state.departments.concat(action.department)
                 }
+        case TYPES.UPDATE_EMPLOYEES:
+                return {
+                    ...state,
+                    employees: state.employees.map(employee =>{
+                        let updated = action.employees.find(emp => emp.id === employee.id)
+                        if(updated) return updated;
+                        else return employee;
+                    })
+                }
         default:
             return state;
     }    

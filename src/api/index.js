@@ -92,3 +92,10 @@ export function addDepartment(department){
         body: JSON.stringify(department)
     })
 }
+export function updateEmployees(employees){
+    return request({
+        url: BASE_URL + "/employees",
+        method: 'PUT',
+        body: JSON.stringify(employees)
+    })
+}

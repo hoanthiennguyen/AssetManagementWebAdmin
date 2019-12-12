@@ -3,25 +3,23 @@ import { connect } from 'react-redux'
 import { Modal } from 'antd'
 import { Button, Form, Select } from 'antd';
 import * as api from '../api/index'
-import { addDepartment, addEmployees } from '../action/index'
+import { addDepartment, addEmployees, updateEmployees} from '../action/index'
 const { Option } = Select;
 class AddDepartment extends Component {
     state = {
         visible: false,
         confirmLoading: false,
     };
+    addedAvailableEmployees = [];
     showModal = () => {
         this.setState({
             visible: true,
         });
     };
-    handleChange = (employees) => {
-        this.addedEmployees = employees.map(employee =>{
-            return{
-                ...employee,
-                department: employee.department.concat(this.props.record)
-            }
-        })
+    handleChange = (employeesID) => {
+        this.addedAvailableEmployees = this.props.employees.filter(el=>{
+            return employeesID.includes(el.id);
+        });
     }
 
     handleCancel = () => {
@@ -42,6 +40,10 @@ class AddDepartment extends Component {
         }
         api.addDepartment(department).then(department =>{
             this.props.dispatch(addDepartment(department))
+            this.setState({
+                visible: false,
+                confirmLoading: false,
+            })
             let employees = emails.map(email => {
                 return {
                     "username": email,
@@ -50,14 +52,26 @@ class AddDepartment extends Component {
                     "fullName": email,
                     "department": [department]
                 }
+            }).filter(employee => employee.email !=="")
+            let updatedEmployees = this.addedAvailableEmployees.map(employee =>{
+                return{
+                    ...employee,
+                    department: employee.department.concat(department)
+                }
             })
-            api.addEmployees(employees).then(employees =>{
-                this.props.dispatch(addEmployees(employees))
-                this.setState({
-                    visible: false,
-                    confirmLoading: false,
+            if(updatedEmployees.length > 0){
+                api.updateEmployees(updatedEmployees).then(employees => {
+                    console.log(employees)
+                    this.props.dispatch(updateEmployees(employees))
                 })
-            })
+            }
+            
+            if(employees.length > 0 ) {
+                api.addEmployees(employees).then(employees =>{
+                    this.props.dispatch(addEmployees(employees))
+                    
+                })
+            }
         })
     }
     render() {

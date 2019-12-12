@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Modal } from 'antd'
 import { Button, List, Form, Select } from 'antd';
 import * as api from '../api/index'
-import { updateDepartment, addEmployees } from '../action/index'
+import { updateDepartment, addEmployees, updateEmployees } from '../action/index'
 const { Option } = Select;
 class EditDepartment extends Component {
     state = {
@@ -12,21 +12,23 @@ class EditDepartment extends Component {
         isDeleting: false
     };
     toBeDeletedEmployees = [];
-    employees = this.props.employees.filter(employee => {
-        return employee.department.find(department => department.id === this.props.record.id) !== undefined;
-    })
+    addedAvaibleEmployees = [];
+    addedNewEmployees = [];
     showModal = () => {
         this.setState({
             visible: true,
         });
     };
-    handleChange = (employees) => {
-        this.addedEmployees = employees.map(employee =>{
-            return{
-                ...employee,
-                department: employee.department.concat(this.props.record)
-            }
+    handleChange = (employeesID) => {
+        this.addedAvaibleEmployees = this.props.employees.filter(el => {
+            return employeesID.includes(el.id);
         })
+            .map(employee => {
+                return {
+                    ...employee,
+                    department: employee.department.concat(this.props.record)
+                }
+            })
     }
 
     handleCancel = () => {
@@ -40,9 +42,9 @@ class EditDepartment extends Component {
             confirmLoading: true,
             // isDeleting: false
         })
-        // console.log("Deleted :" + this.toBeDeletedEmployees)
+
         let emails = this.newEmployees.value.split(",")
-        let employees = emails.map(email => {
+        this.addedNewEmployees = emails.map(email => {
             return {
                 "username": email,
                 "email": email,
@@ -50,17 +52,25 @@ class EditDepartment extends Component {
                 "fullName": email,
                 "department": [this.props.record]
             }
-        })
+        }).filter(employee => employee.email !== "")
         let editedDepartment = {
             ...this.props.record,
             name: this.name.value,
             description: this.description.value
         }
-        console.log(editedDepartment)
-        console.log(employees)
-        Promise.all([api.updateDepartment(editedDepartment), api.addEmployees(employees)]).then((values) => {
-            this.props.dispatch(updateDepartment(values[0]))
-            this.props.dispatch(addEmployees(values[1]))
+        if (this.addedNewEmployees.length > 0) {
+            api.addEmployees(this.addedNewEmployees).then(employees => {
+                this.props.dispatch(addEmployees(employees))
+            })
+        }
+        if (this.addedAvaibleEmployees.length > 0) {
+            api.updateEmployees(this.addedAvaibleEmployees)
+                .then(employees => {
+                    this.props.dispatch(updateEmployees(employees))
+                })
+        }
+        api.updateDepartment(editedDepartment).then(department => {
+            this.props.dispatch(updateDepartment(department))
             this.setState({
                 visible: false,
                 confirmLoading: false,
@@ -77,7 +87,6 @@ class EditDepartment extends Component {
         let arr = this.props.employees.filter(employee => {
             return employee.department.find(department => department.id === this.props.record.id) !== undefined;
         })
-        console.log(arr)
         // if (this.state.isDeleting) arr = arr.filter(employee => {
         //     return !this.toBeDeletedEmployees.includes(employee)
         // })
