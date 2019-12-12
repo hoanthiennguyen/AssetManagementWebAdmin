@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { Table } from 'antd'
-import AddModal from './AddModal'
 import EditDepartment from './EditDepartment'
+import AddDepartment from './AddDepartment'
  class Departments extends Component {
     
       
@@ -34,8 +34,7 @@ import EditDepartment from './EditDepartment'
           
             <h3 style={{display:'inline-block'}}>Departments</h3>,
             <div style={{display:'inline-block',float:'right'}}>
-              <AddModal>
-              </AddModal>
+              <AddDepartment></AddDepartment>
             </div>,
     
           table];

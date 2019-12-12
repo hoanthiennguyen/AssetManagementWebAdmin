@@ -47,6 +47,24 @@ export default (state, action) => {
                     ...state,
                     departments:action.departments
                 }
+        case TYPES.UPDATE_DEPARTMENT:
+                return {
+                    ...state,
+                    departments:state.departments.map(department =>{
+                        if(department.id === action.department.id) return action.department;
+                        else return department;
+                    })
+                }
+        case TYPES.ADD_EMPLOYEES:
+                return {
+                    ...state,
+                    employees: state.employees.concat(action.employees)
+                }
+        case TYPES.ADD_DEPARTMENT:
+                return {
+                    ...state,
+                    departments: state.departments.concat(action.department)
+                }
         default:
             return state;
     }    

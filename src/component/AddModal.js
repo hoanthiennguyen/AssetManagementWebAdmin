@@ -9,8 +9,9 @@ class AddModal extends Component {
     state = {
         visible: false,
         confirmLoading: false,
+        filteredEmployees: []
     };
-    
+
 
     showModal = () => {
         this.setState({
@@ -18,7 +19,15 @@ class AddModal extends Component {
         });
     };
 
+    handleChangeAssetType = (id) => {
+        this.assetType = this.props.assetTypes.find(el => el.id === id)
+        this.setState({
+            filteredEmployees: this.props.employees.filter(employee => {
+                return employee.department.find(dept => dept.id === this.assetType.department.id) !== undefined;
+            })
 
+        })
+    }
 
     handleCancel = () => {
         this.setState({
@@ -55,7 +64,7 @@ class AddModal extends Component {
 
     render() {
         const locations = this.props.locations.map(location => <Option key={location.id} value={location.id}>{location.block + location.room}</Option>)
-        const employees = this.props.employees.map(employee => <Option key={employee.id} value={employee.id}>{employee.email ? employee.email : employee.username}</Option>)
+        const filteredEmployees = this.state.filteredEmployees.map(employee => <Option key={employee.id} value={employee.id}>{employee.email ? employee.email : employee.username}</Option>)
         const assetStatuses = ["STABLE", "REMOVED", "DAMAGED", "REPAIRING", "CREATED"].map(status => <Option key={status} value={status}>{status}</Option>)
         const assetTypes = this.props.assetTypes.map(assetType => <Option key={assetType.id} value={assetType.id}>{assetType.name + " (" + assetType.department.name.toUpperCase() + ") "}</Option>)
         return ([
@@ -68,7 +77,7 @@ class AddModal extends Component {
                         <input className="form-control" ref={el => this.name = el} type="text" defaultValue={this.props.record ? this.props.record.name : ""} />
                     </Form.Item>
                     <Form.Item label="Types">
-                        <Select onChange={id => { this.assetType = this.props.assetTypes.find(el => el.id === id) }}
+                        <Select onChange={id => { this.handleChangeAssetType(id) }}
                             placeholder="Select a type">
                             {assetTypes}
                         </Select>,
@@ -95,7 +104,7 @@ class AddModal extends Component {
                                 option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
                             placeholder="Select an employee">
-                            {employees}
+                            {filteredEmployees}
                         </Select>,
                     </Form.Item>
                 </Form>

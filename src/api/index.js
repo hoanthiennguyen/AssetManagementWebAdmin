@@ -23,7 +23,7 @@ function request(options) {
 };
 export function getAllAsset() {
     return request({
-        url: BASE_URL + "/assets",
+        url: BASE_URL + "/assets?size=50&page=0",
         method: 'GET',
     });
 }
@@ -69,5 +69,26 @@ export function getDepartments(){
     return request({
         url: BASE_URL + "/departments",
         method: 'GET'
+    })
+}
+export function updateDepartment(department){
+    return request({
+        url: BASE_URL + "/departments/" + department.id,
+        method: 'PUT',
+        body: JSON.stringify(department)
+    })
+}
+export function addEmployees(employees){
+    return request({
+        url: BASE_URL + "/employees",
+        method: 'POST',
+        body: JSON.stringify(employees)
+    })
+}
+export function addDepartment(department){
+    return request({
+        url: BASE_URL + "/departments",
+        method: 'POST',
+        body: JSON.stringify(department)
     })
 }
