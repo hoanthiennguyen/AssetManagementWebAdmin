@@ -4,10 +4,13 @@ import { connect } from 'react-redux'
 import { Table } from 'antd'
 import EditDepartment from './EditDepartment'
 import AddDepartment from './AddDepartment'
+import {Redirect} from 'react-router-dom'
  class Departments extends Component {
     
       
       render() {
+        if(!this.props.authorized)
+          return <Redirect to="/login"></Redirect>
         const columns = [
           {
             title: 'Id',
@@ -18,6 +21,11 @@ import AddDepartment from './AddDepartment'
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+          },
+          {
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
           },
           {
             title: 'Action',

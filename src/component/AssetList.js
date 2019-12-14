@@ -4,6 +4,7 @@ import DeleteModal from './DeleteModal'
 import { Table, Divider } from 'antd'
 import EditModal from './EditModal'
 import AddModal from './AddModal'
+import {Redirect} from 'react-router-dom'
 
 class AssetList extends Component {
   
@@ -22,6 +23,8 @@ class AssetList extends Component {
     })
   }
   render() {
+    if(!this.props.authorized)
+            return <Redirect to="/login"></Redirect>
     const columns = [
       {
         title: 'Id',

@@ -4,10 +4,10 @@ function request(options) {
         'Content-Type': 'application/json',
     })
 
-    if (localStorage.getItem('accessToken')) {
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('accessToken'))
+    if (localStorage.getItem('token')) {
+        headers.append('Authorization', localStorage.getItem('token'))
     }
-    headers.append('Authorization', "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfRklSTV9BRE1JTixST0xFX0ZJUk1fRU1QTE9ZRUUiLCJzdWIiOiJraGFuaDQiLCJpc3MiOiJBc3NldCBNYW5hZ2VtZW50IFN5c3RlbSBBUEkiLCJpYXQiOjE1NzYwNTExOTQsImV4cCI6MTU3NjY1NTk5NH0.ZhFqQSf2QofQjDDdUjm2WSJLstXPC3VAKkg-9ER4BAMrGJJ86cAw4dqP_ni0U_YBNA6mSNqIps8-wF8CmsoRZQ")
+    // headers.append('Authorization', "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfRklSTV9BRE1JTixST0xFX0ZJUk1fRU1QTE9ZRUUiLCJzdWIiOiJraGFuaDQiLCJpc3MiOiJBc3NldCBNYW5hZ2VtZW50IFN5c3RlbSBBUEkiLCJpYXQiOjE1NzYwNTExOTQsImV4cCI6MTU3NjY1NTk5NH0.ZhFqQSf2QofQjDDdUjm2WSJLstXPC3VAKkg-9ER4BAMrGJJ86cAw4dqP_ni0U_YBNA6mSNqIps8-wF8CmsoRZQ")
     const defaults = { headers: headers };
     options = Object.assign({}, defaults, options);
 
@@ -97,5 +97,12 @@ export function updateEmployees(employees){
         url: BASE_URL + "/employees",
         method: 'PUT',
         body: JSON.stringify(employees)
+    })
+}
+export function login(data){
+    return request({
+        url: "http://asset-management-system-api.herokuapp.com/api/v1/authenticate",
+        method: 'POST',
+        body: JSON.stringify(data)
     })
 }
