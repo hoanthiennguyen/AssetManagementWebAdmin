@@ -78,7 +78,7 @@ class AddDepartment extends Component {
         let options = this.props.employees.map(employee => <Option key={employee.id} value={employee.id}>{employee.email}</Option>)
         return (
             [
-                <Button onClick={this.showModal}>
+                <Button icon="plus" onClick={this.showModal}>
                     Add Department
                 </Button>,
                 <Modal onOk={this.handleOk} confirmLoading={this.state.confirmLoading} onCancel={this.handleCancel} title="Add" visible={this.state.visible}>

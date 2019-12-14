@@ -106,3 +106,32 @@ export function login(data){
         body: JSON.stringify(data)
     })
 }
+export function deleteDepartment(id){
+    return request({
+        url: BASE_URL + "/departments/"+id,
+        method: 'DELETE'
+    })
+}
+export function deleteAssetType(id){
+    return request({
+        url: BASE_URL + "/asset-types/"+id,
+        method: 'DELETE'
+    })
+}
+export function updateAssetType(assetType){
+    let params = "";
+    if(assetType.receiverId) 
+        params = "?receiverId="+ assetType.receiverId;
+    return request({
+        url: BASE_URL + "/asset-types/" + assetType.id + params,
+        method: 'PUT',
+        body: JSON.stringify(assetType)
+    })
+}
+export function addAssetType(assetType){
+    return request({
+        url: BASE_URL + "/asset-types",
+        method: 'POST',
+        body: JSON.stringify(assetType)
+    })
+}

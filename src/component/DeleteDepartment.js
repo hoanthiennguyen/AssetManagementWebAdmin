@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import 'antd/dist/antd.css';
 import { Modal, Button } from 'antd';
 import {connect} from 'react-redux'
-import {deleteAsset} from '../action/index'
-import {deleteAsset as apiDeleteAsset} from '../api/index'
+import {deleteDepartment} from '../action/index'
+import {deleteDepartment as apiDeleteDepartment} from '../api/index'
 
 class DeleteModal extends Component {
     state = {
@@ -21,13 +21,12 @@ class DeleteModal extends Component {
         this.setState({
             confirmLoading: true,
         });
-        apiDeleteAsset(this.props.record.id).then( asset => {
-            console.log(asset);
+        apiDeleteDepartment(this.props.record.id).then( department => {
             this.setState({
                 visible: false,
                 confirmLoading: false,
             });
-            this.props.dispatch(deleteAsset(asset.id));
+            this.props.dispatch(deleteDepartment(this.props.record.id));
         });
     };
 
@@ -51,7 +50,7 @@ class DeleteModal extends Component {
                     confirmLoading={confirmLoading}
                     onCancel={this.handleCancel}
                 >
-                    <p>Are you sure you want to delete this asset: {this.props.record.name}?</p>
+                    <p>Are you sure you want to delete this department: {this.props.record.name}?</p>
                 </Modal>
             ]
         );

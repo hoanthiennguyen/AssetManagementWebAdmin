@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import 'antd/dist/antd.css';
 import { Modal, Button } from 'antd';
 import {connect} from 'react-redux'
-import {deleteAsset} from '../action/index'
-import {deleteAsset as apiDeleteAsset} from '../api/index'
+import {deleteAssetType} from '../action/index'
+import {deleteAssetType as apiDeleteAssetType} from '../api/index'
 
-class DeleteModal extends Component {
+class DeleteAssetType extends Component {
     state = {
         visible: false,
         confirmLoading: false,
@@ -21,13 +21,15 @@ class DeleteModal extends Component {
         this.setState({
             confirmLoading: true,
         });
-        apiDeleteAsset(this.props.record.id).then( asset => {
-            console.log(asset);
+        apiDeleteAssetType(this.props.record.id).then( payload => {
             this.setState({
                 visible: false,
                 confirmLoading: false,
             });
-            this.props.dispatch(deleteAsset(asset.id));
+            if(payload === "Delete asset type successfully")
+                this.props.dispatch(deleteAssetType(this.props.record.id));
+            else
+                alert("Cannot delete asset type because there're still some assets belonging to it")
         });
     };
 
@@ -51,10 +53,10 @@ class DeleteModal extends Component {
                     confirmLoading={confirmLoading}
                     onCancel={this.handleCancel}
                 >
-                    <p>Are you sure you want to delete this asset: {this.props.record.name}?</p>
+                    <p>Are you sure you want to delete this assetType: {this.props.record.name}?</p>
                 </Modal>
             ]
         );
     }
 }
-export default connect()(DeleteModal);
+export default connect()(DeleteAssetType);

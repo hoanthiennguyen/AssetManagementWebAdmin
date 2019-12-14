@@ -70,7 +70,7 @@ class EditModal extends Component {
 
   render() {
     const locations = this.props.locations.map(location => <Option key={location.id} value={location.id}>{location.block + location.room}</Option>)
-    const employees = this.state.filteredEmployees.map(employee => <Option key={employee.id} value={employee.id}>{employee.email ? employee.email : employee.username}</Option>)
+    const employees = this.state.filteredEmployees.map(employee => <Option key={employee.id} value={employee.id}>{employee.email}</Option>)
     const assetStatuses = ["STABLE", "REMOVED", "DAMAGED", "REPAIRING", "CREATED"].map(status => <Option key={status} value={status}>{status}</Option>)
     const assetTypes = this.props.assetTypes.map(assetType => <Option key={assetType.id} value={assetType.id}>{assetType.name + " (" + assetType.department.name.toUpperCase() + ") "}</Option>)
     return ([
@@ -105,7 +105,7 @@ class EditModal extends Component {
             </Select>,
           </Form.Item>
           <Form.Item label="Employee">
-            <Select defaultValue={this.employee.id}
+            <Select defaultValue={this.props.record.currentStage.employee.id}
               onChange={id => { this.employee = this.props.employees.find(employee => employee.id === id); }}
               showSearch
               filterOption={(input, option) =>

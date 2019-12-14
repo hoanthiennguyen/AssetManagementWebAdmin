@@ -48,6 +48,22 @@ export const updateEmployees = employees => ({
   type: TYPES.UPDATE_EMPLOYEES,
   employees
 })
+export const deleteDepartment = id => ({
+  type: TYPES.DELETE_DEPARTMENT,
+  id
+})
+export const deleteAssetType = id => ({
+  type: TYPES.DELETE_ASSET_TYPE,
+  id
+})
+export const updateAssetType = assetType => ({
+  type: TYPES.UPDATE_ASSET_TYPE,
+  assetType
+})
+export const addAssetType = assetType => ({
+  type: TYPES.ADD_ASSET_TYPE,
+  assetType
+})
 export const TYPES = {
   SET_ASSET_LIST:"SET_ASSET_LIST",
   ADD_ASSET: "ADD_ASSET",
@@ -61,4 +77,8 @@ export const TYPES = {
   ADD_EMPLOYEES:"ADD_EMPLOYEES",
   ADD_DEPARTMENT:"ADD_DEPARTMENT",
   UPDATE_EMPLOYEES:"UPDATE_EMPLOYEES",
+  DELETE_DEPARTMENT:"DELETE_DEPARTMENT",
+  DELETE_ASSET_TYPE:"DELETE_ASSET_TYPE",
+  UPDATE_ASSET_TYPE:"UPDATE_ASSET_TYPE",
+  ADD_ASSET_TYPE:"ADD_ASSET_TYPE",
 }

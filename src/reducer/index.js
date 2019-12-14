@@ -74,6 +74,29 @@ export default (state, action) => {
                         else return employee;
                     })
                 }
+        case TYPES.DELETE_DEPARTMENT:
+                return{
+                    ...state,
+                    departments: state.departments.filter(department => department.id !== action.id)
+                }
+        case TYPES.DELETE_ASSET_TYPE:
+                return{
+                    ...state,
+                    assetTypes: state.assetTypes.filter(assetType => assetType.id !== action.id)
+                }
+        case TYPES.UPDATE_ASSET_TYPE:
+                return{
+                    ...state,
+                    assetTypes: state.assetTypes.map(assetType =>{
+                        if(assetType.id === action.assetType.id) return action.assetType;
+                        else return assetType;
+                    })
+                }
+        case TYPES.ADD_ASSET_TYPE:
+                return {
+                    ...state,
+                    assetTypes:state.assetTypes.concat(action.assetType)
+                }
         default:
             return state;
     }    
