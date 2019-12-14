@@ -10,10 +10,13 @@ export default class SidebarMenu extends Component {
           return <div></div>
     return (
       <Menu
-        style={{ width: 256 }}
+        style={{ width: 256, height:"100%"}}
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline">
+        <Menu.Item key="0">
+          <span style={{fontSize:22}}>Asset Management</span>
+        </Menu.Item>
         <Menu.Item key="1">
           <Icon type="pie-chart" />
           <span><Link to="/">Reports</Link></span>
@@ -22,7 +25,7 @@ export default class SidebarMenu extends Component {
           key="sub1"
           title={
             <span>
-              <Icon type="mail" />
+              <Icon type="desktop" />
               <span>Asset Management</span>
             </span>
           }
@@ -31,7 +34,7 @@ export default class SidebarMenu extends Component {
           <Menu.Item key="6"><Link to="/asset-types"></Link>Asset Types</Menu.Item>
         </SubMenu>
         <Menu.Item key="3">
-          <Icon type="inbox" />
+          <Icon type="apartment" />
           <span><Link to="/departments">Departments</Link></span>
         </Menu.Item>
         <Menu.Item key="4">
