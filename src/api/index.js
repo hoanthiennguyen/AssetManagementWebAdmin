@@ -23,7 +23,7 @@ function request(options) {
 };
 export function getAllAsset() {
     return request({
-        url: BASE_URL + "/assets?size=50&page=0",
+        url: BASE_URL + "/assets",
         method: 'GET',
     });
 }
@@ -61,7 +61,7 @@ export function getAllLocations(){
 }
 export function getEmployees(){
     return request({
-        url: BASE_URL + "/employees?page=0&size=10",
+        url: BASE_URL + "/employees",
         method: 'GET'
     })
 }

@@ -1,0 +1,1 @@
+export const STATUS = ["STABLE", "REMOVED", "DAMAGED", "REPAIRING", "CREATED"];
